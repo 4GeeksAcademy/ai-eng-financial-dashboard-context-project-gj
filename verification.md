@@ -63,3 +63,9 @@ Redacta una memory-bank en la raiz del proyecto con al menos descripción de pro
 **Resultado**
 
 - Creo un archivo project-context.md en la raiz del proyecto dentro de memory-bank. Indico El Estado Actual, el Stack tecnológico, la salida.
+
+# Octavo Promt - Anotaciones de desajustes entre el wording del PM y campos reales de API
+
+**Resultado**
+
+Se anotó las discrepancias en dashboard-api-aligment.md sin modificar la implementación.
