@@ -69,3 +69,13 @@ Redacta una memory-bank en la raiz del proyecto con al menos descripción de pro
 **Resultado**
 
 Se anotó las discrepancias en dashboard-api-aligment.md sin modificar la implementación.
+
+# Noveno Promt - Typecript
+
+Actua como experto en app de dashboard financiero y redacta en frontend/specs/api-types.ts con interfases para respuestas usadas por las tres funcionalidades : 1. FacetsResponse - referencia de rangos de fechas y vista B2B vs B2C 2. AlertEntry, AlertsResponse- tabal de anomalias 3. CategoryEntry, TopCateroriesResponse - Tabla compartiva B2B vs B2C
+
+**Resultado**
+
+Se creo api-types.ts con las tres funcionalidades. 
+
+La comprobación de errores del archivo no encontró problemas. No pude ejecutar el build: falta tsc en el entorno de frontend.
