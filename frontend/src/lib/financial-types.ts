@@ -1,6 +1,7 @@
 export type OperationType = 'income' | 'outcome'
 export type Category = 'suppliers' | 'sales' | 'operational' | 'administrative' | 'others'
 export type BusinessType = 'B2B' | 'B2C'
+export type GroupBy = 'day' | 'week' | 'month'
 
 export interface FinancialMovement {
   create_date: string // ISO date
