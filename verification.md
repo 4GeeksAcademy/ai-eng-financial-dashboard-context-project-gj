@@ -78,4 +78,5 @@ Actua como experto en app de dashboard financiero y redacta en frontend/specs/ap
 
 Se creo api-types.ts con las tres funcionalidades. 
 
-La comprobación de errores del archivo no encontró problemas. No pude ejecutar el build: falta tsc en el entorno de frontend.
+"La comprobación de errores del archivo no encontró problemas. No pude ejecutar el build: falta tsc en el entorno de frontend." Este mensaje indica que no se encontro el archivo para comprobar que el typescript. No es un error 
+
