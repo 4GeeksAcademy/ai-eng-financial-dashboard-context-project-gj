@@ -4,8 +4,8 @@ import {
   type MonthlyDataPoint,
 } from "./financial-types";
 
-function toYearMonthKey(value: Date): string {
-  return `${value.getFullYear()}-${String(value.getMonth() + 1).padStart(2, "0")}`;
+function toYearMonthKey(value: string): string {
+  return value.slice(0, 7);
 }
 
 function formatMonthYearLabel(yearMonthKey: string): string {
@@ -33,13 +33,27 @@ export function computeKPIs(movements: FinancialMovement[]): KPIMetrics {
   return { totalIncome, totalOutcome, profit, profitPercent };
 }
 
+export function formatMovementPeriod(movements: FinancialMovement[]): string {
+  if (movements.length === 0) return "No data";
+
+  const periods = movements
+    .map((movement) => movement.create_date.slice(0, 7))
+    .sort();
+  const firstPeriod = formatMonthYearLabel(periods[0]);
+  const lastPeriod = formatMonthYearLabel(periods[periods.length - 1]);
+
+  return firstPeriod === lastPeriod
+    ? firstPeriod
+    : `${firstPeriod} - ${lastPeriod}`;
+}
+
 export function computeMonthlyData(
   movements: FinancialMovement[],
 ): MonthlyDataPoint[] {
   const monthlyMap: Record<string, { income: number; outcome: number }> = {};
 
   for (const m of movements) {
-    const yearMonthKey = toYearMonthKey(new Date(m.create_date));
+    const yearMonthKey = toYearMonthKey(m.create_date);
     if (!monthlyMap[yearMonthKey]) {
       monthlyMap[yearMonthKey] = { income: 0, outcome: 0 };
     }
@@ -70,6 +84,7 @@ export function formatCurrency(value: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
+    currencyDisplay: "code",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);

@@ -63,3 +63,9 @@ Redacta una memory-bank en la raiz del proyecto con al menos descripción de pro
 **Resultado**
 
 - Creo un archivo project-context.md en la raiz del proyecto dentro de memory-bank. Indico El Estado Actual, el Stack tecnológico, la salida.
+
+# Datos de las Skills
+
+Una vez implementadas las Skills en el repositorio, estas encontraron 4 errores en el dashboard relacionados con la presentación de datos, conflictos horarios y uso de moneda. Se ha aceptado realizar los cambios. 
+
+Adicionalmente, se ha detectado que el backend no puede correr correctamente sin la instalacion de FastAPI; por lo que se ha solicitado al agente que ejecute lo necesaerio establecido en requeriments.txt.

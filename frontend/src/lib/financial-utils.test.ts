@@ -4,6 +4,7 @@ import {
   computeKPIs,
   computeMonthlyData,
   formatCurrency,
+  formatMovementPeriod,
   formatPercent,
 } from "./financial-utils";
 import type { FinancialMovement } from "./financial-types";
@@ -61,6 +62,15 @@ describe("computeKPIs", () => {
 });
 
 describe("computeMonthlyData", () => {
+  it("keeps first-of-month dates in their ISO calendar month", () => {
+    const firstDayMovement: FinancialMovement = {
+      ...sampleMovements[0],
+      create_date: "2025-12-01",
+    };
+
+    expect(computeMonthlyData([firstDayMovement])[0]?.month).toBe("Dec 2025");
+  });
+
   it("returns chronological year-month points with aggregated totals", () => {
     const unsortedCrossYearMovements: FinancialMovement[] = [
       {
@@ -100,12 +110,20 @@ describe("computeMonthlyData", () => {
       outcome: 0,
       profitPercent: 100,
     });
+    expect(formatMovementPeriod(unsortedCrossYearMovements)).toBe(
+      "Dec 2025 - Jan 2026",
+    );
+  });
+
+  it("reports an empty period when there are no movements", () => {
+    expect(formatMovementPeriod([])).toBe("No data");
   });
 });
 
 describe("formatters", () => {
   it("formats currency without decimals", () => {
-    expect(formatCurrency(1234.56)).toBe("$1,235");
+    expect(formatCurrency(1234.56)).toContain("USD");
+    expect(formatCurrency(1234.56)).toContain("1,235");
   });
 
   it("formats percent with one decimal", () => {
