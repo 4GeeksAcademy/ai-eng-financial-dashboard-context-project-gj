@@ -49,7 +49,7 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
 export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
   if (loading) {
     return (
-      <Card className="border-border/60">
+      <Card className="min-h-[420px] border-border/60">
         <CardHeader className="pb-4">
           <Skeleton className="h-5 w-52" />
           <Skeleton className="h-3 w-64 mt-1" />
@@ -64,7 +64,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
   const hasData = data.some((d) => d.income > 0 || d.outcome > 0)
 
   return (
-    <Card className="border-border/60">
+    <Card className="min-h-[420px] border-border/60">
       <CardHeader className="pb-4">
         <CardTitle className="text-base font-semibold">Income vs. Outcome</CardTitle>
         <CardDescription>Monthly revenue and expenditure evolution</CardDescription>
