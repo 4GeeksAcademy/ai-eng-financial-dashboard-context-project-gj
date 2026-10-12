@@ -42,8 +42,8 @@ export function KPICard({ label, value, helperText, icon: Icon, variant, loading
             <Skeleton className="h-4 w-28" />
             <Skeleton className="h-8 w-8 rounded-lg" />
           </div>
-          <Skeleton className="h-8 w-36" />
-          <Skeleton className="h-3 w-44" />
+          <Skeleton className="h-9 w-36" />
+          <Skeleton className="h-[18px] w-44 sm:h-9" />
         </CardContent>
       </Card>
     )
@@ -57,11 +57,15 @@ export function KPICard({ label, value, helperText, icon: Icon, variant, loading
             {label}
           </span>
           <span className={cn('p-1.5 rounded-lg', styles.badge)}>
-            <Icon size={16} className={styles.icon} />
+            <Icon size={16} className={styles.icon} aria-hidden="true" />
           </span>
         </div>
-        <p className="text-3xl font-semibold tracking-tight text-foreground">{value}</p>
-        <p className="text-xs text-muted-foreground leading-relaxed">{helperText}</p>
+        <p className="min-h-9 text-3xl leading-9 font-semibold tabular-nums tracking-tight text-foreground">
+          {value}
+        </p>
+        <p className="min-h-[18px] text-xs text-muted-foreground leading-relaxed sm:min-h-9">
+          {helperText}
+        </p>
       </CardContent>
     </Card>
   )

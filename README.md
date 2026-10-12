@@ -42,12 +42,24 @@ _Financial metrics dashboard with a React + TypeScript frontend and a FastAPI ba
 docker compose up --build
 ```
 
-The frontend uses the Vite proxy for `/api` by default, so no extra environment variables are required in local development or Codespaces.
-If you need to target a different backend origin, copy `frontend/.env.example` to `.env` and set `VITE_API_BASE_URL`.
+In development, the frontend uses the Vite proxy for `/api`, and Compose directs it to the `backend` service; no extra variables are required. To change that destination, set `VITE_API_PROXY_TARGET` in `frontend/.env.local`.
 
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8000
 - API documentation: http://localhost:8000/docs
+
+## Frontend production image
+
+The default image serves the static build with Nginx on port 80. Its `/api/` proxy targets `http://backend:8000` by default, so the container must share a network with the backend and resolve that name. Override it at runtime with `API_UPSTREAM`.
+
+```bash
+docker build -t financial-dashboard-frontend ./frontend
+docker run --rm -p 8080:80 --network backend-network -e API_UPSTREAM=http://backend:8000 financial-dashboard-frontend
+```
+
+Replace `backend-network` with a Docker network shared with the API service, where the name `backend` resolves.
+
+To have the browser call a public API directly instead of using the Nginx proxy, set `VITE_API_BASE_URL` when building the image; this URL is bundled into the frontend, and the API must allow the frontend origin through CORS.
 
 ---
 

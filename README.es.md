@@ -42,12 +42,24 @@ _Dashboard de métricas financieras con frontend en React + TypeScript y backend
 docker compose up --build
 ```
 
-El frontend usa por defecto el proxy de Vite para `/api`, así que no necesitas variables de entorno extra ni en desarrollo local ni en Codespaces.
-Si necesitas apuntar a otro backend, copia `frontend/.env.example` como `.env` y define `VITE_API_BASE_URL`.
+En desarrollo, el frontend usa el proxy de Vite para `/api` y Compose lo dirige al servicio `backend`; no necesitas variables adicionales. Para cambiar ese destino, define `VITE_API_PROXY_TARGET` en `frontend/.env.local`.
 
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8000
 - Documentación API: http://localhost:8000/docs
+
+## Imagen de producción del frontend
+
+La imagen predeterminada sirve el build estático con Nginx en el puerto 80. El proxy `/api/` apunta por defecto a `http://backend:8000`, por lo que el contenedor debe compartir una red con el backend y resolver ese nombre. Se puede cambiar en runtime con `API_UPSTREAM`.
+
+```bash
+docker build -t financial-dashboard-frontend ./frontend
+docker run --rm -p 8080:80 --network red-del-backend -e API_UPSTREAM=http://backend:8000 financial-dashboard-frontend
+```
+
+Sustituye `red-del-backend` por una red Docker compartida donde el nombre `backend` resuelva al servicio de API.
+
+Para apuntar el navegador directamente a una API pública en vez del proxy de Nginx, define `VITE_API_BASE_URL` al construir la imagen; esa URL queda incluida en el bundle y la API debe permitir el origen del frontend mediante CORS.
 
 ---
 
