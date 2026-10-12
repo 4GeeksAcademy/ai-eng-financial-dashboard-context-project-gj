@@ -59,6 +59,20 @@ describe("computeKPIs", () => {
     const metrics = computeKPIs(onlyOutcomes);
     expect(metrics.profitPercent).toBe(0);
   });
+
+  it("reports a loss when outcomes exceed income", () => {
+    const lossMovements: FinancialMovement[] = [
+      { ...sampleMovements[0], amount: 100 },
+      { ...sampleMovements[1], amount: 150 },
+    ];
+
+    expect(computeKPIs(lossMovements)).toEqual({
+      totalIncome: 100,
+      totalOutcome: 150,
+      profit: -50,
+      profitPercent: -50,
+    });
+  });
 });
 
 describe("computeMonthlyData", () => {
@@ -113,6 +127,28 @@ describe("computeMonthlyData", () => {
     expect(formatMovementPeriod(unsortedCrossYearMovements)).toBe(
       "Dec 2025 - Jan 2026",
     );
+  });
+
+  it("returns a zero profit margin for a month with no income", () => {
+    const onlyOutcome: FinancialMovement = {
+      ...sampleMovements[1],
+      create_date: "2024-03-05",
+    };
+
+    expect(computeMonthlyData([onlyOutcome])).toEqual([
+      {
+        month: "Mar 2024",
+        income: 0,
+        outcome: 250,
+        profitPercent: 0,
+      },
+    ]);
+  });
+});
+
+describe("formatMovementPeriod", () => {
+  it("returns one label when all movements share a month", () => {
+    expect(formatMovementPeriod(sampleMovements.slice(0, 2))).toBe("Jan 2024");
   });
 
   it("reports an empty period when there are no movements", () => {
