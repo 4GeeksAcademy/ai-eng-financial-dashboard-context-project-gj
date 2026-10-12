@@ -76,5 +76,12 @@ Adicionalmente, se ha detectado que el backend no puede correr correctamente sin
 
 Se realizo correcciones de patrones frontend enfocado al despliegue.
 
+**Nueva Skill skill deploy-financial-dashboard/SKILL.md**
+
+Se creo la nueva skill para cubrir el Gap que se requiere. 
+
+Sirve para orientar al agente de IA en la preparación, configuración y validación de una aplicación antes de publicarla en un servidor.
+
+Se creo un archivo en memory bank con informacion y justificacion de esta skill.
 
 
